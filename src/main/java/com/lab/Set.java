@@ -20,8 +20,13 @@ public class Set {
 
      public void insert(int x) {
           for (int i = 0; i < a.size(); i++) {
-               if (a.get(i) == x) {
+               if (a.get(i) > x) {
+                    a.add(i, x);
                     return;
+               } else {
+                    if (a.get(i) == x) {
+                         break;
+                    }
                }
           }
           a.add(x);
@@ -40,18 +45,33 @@ public class Set {
           return false;
      }
 
+     // a = [0,1,2]
+     // s = [1]
+     //
+     //
+     // [1,2], i = 0
+     // [1,2], i = 1
+     //
+     //
      public void intersect(Set s) {
-          for (int i = 0, j = 0; i < a.size() && j < s.a.size();) {
-               if (a.get(i).equals(s.a.get(j))) {
+          int i = 0;
+          int j = 0;
+
+          while (true) {
+
+               if (a.get(i) < s.a.get(j)) {
+                    a.remove(i);
+
+               } else if (i < a.size() - 1) {
                     i++;
+               }
+
+               if (j < s.a.size() - 1) {
                     j++;
-               } else {
-                    if (a.get(i) < s.a.get(j)) {
-                         a.remove(i);
-                         i++;
-                    } else {
-                         j++;
-                    }
+               }
+
+               if (i >= a.size() - 1 && j == s.a.size() - 1) {
+                    break;
                }
           }
      }

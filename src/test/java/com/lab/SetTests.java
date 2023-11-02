@@ -12,6 +12,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class SetTests {
 
+     /******************
+      * Insert Tests
+      ******************/
      @Test
      public void insertShouldIncreaseSize() {
           Set s = new Set();
@@ -28,6 +31,34 @@ class SetTests {
      }
 
      @Test
+     public void shouldInsertInOrder() {
+          Set s = new Set();
+          s.insert(1);
+          s.insert(0);
+          int[] expected = { 0, 1 };
+          assertArrayEquals(expected, s.toArray());
+     }
+
+     @Test
+     public void shouldInsertInOrder2() {
+          Set s = new Set();
+          s.insert(0);
+          s.insert(1);
+          int[] expected = { 0, 1 };
+          assertArrayEquals(expected, s.toArray());
+     }
+
+     @Test
+     public void insertShouldNotHaveEmptySet() {
+          Set s = new Set();
+          s.insert(0);
+          assertNotEquals(s.toArray().length, 0);
+     }
+
+     /******************
+      * Member Tests
+      ******************/
+     @Test
      public void insertShouldHaveMember() {
           Set s = new Set();
           s.insert(0);
@@ -35,27 +66,34 @@ class SetTests {
      }
 
      @Test
-     public void insertShouldNotEmptySet() {
+     public void emptySetShouldHaveNoMember() {
           Set s = new Set();
-          s.insert(0);
-          assertNotEquals(s.toArray().length, 0);
+          assertTrue(s.member(0) == false);
      }
 
      @Test
-     public void duplicateInsertShouldNotIncreaseSize() {
+     public void insertShouldNotHaveMember() {
           Set s = new Set();
           s.insert(0);
-          s.insert(0);
-          assertEquals(s.toArray().length, 1);
+          assertTrue(s.member(1) == false);
      }
 
+     /******************
+      * Intersect Tests
+      ******************/
      @Test
-     public void shouldNotInsertDuplicate() {
+     public void intersect() {
           Set s = new Set();
           s.insert(0);
-          s.insert(0);
-          int[] expected = { 0 };
-          assertArrayEquals(s.toArray(), expected);
+          s.insert(1);
+          s.insert(2);
+
+          Set s2 = new Set();
+          s2.insert(1);
+
+          s.intersect(s2);
+
+          assertArrayEquals(s2.toArray(), s.toArray());
      }
 
 }
