@@ -40,4 +40,22 @@ class SetTests {
           s.insert(0);
           assertNotEquals(s.toArray().length, 0);
      }
+
+     @Test
+     public void duplicateInsertShouldNotIncreaseSize() {
+          Set s = new Set();
+          s.insert(0);
+          s.insert(0);
+          assertEquals(s.toArray().length, 1);
+     }
+
+     @Test
+     public void shouldNotInsertDuplicate() {
+          Set s = new Set();
+          s.insert(0);
+          s.insert(0);
+          int[] expected = { 0 };
+          assertArrayEquals(s.toArray(), expected);
+     }
+
 }
