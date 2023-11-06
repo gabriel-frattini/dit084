@@ -1,9 +1,11 @@
 package com.lab;
 
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.function.IntBinaryOperator;
 
@@ -97,7 +99,7 @@ class SetTests {
       * Intersect Tests
       ******************/
      @Test
-     public void intersect() {
+     public void shouldIntersectSmallerArray() {
           Set s = new Set();
           s.insert(0);
           s.insert(1);
@@ -108,7 +110,63 @@ class SetTests {
 
           s.intersect(s2);
 
-          // assertArrayEquals(s2.toArray(), s.toArray());
+          assertArrayEquals(s2.toArray(), s.toArray());
+     }
+
+     @Test
+     public void shouldIntersectLargerArray() {
+          Set s = new Set();
+          s.insert(0);
+
+          Set s2 = new Set();
+          s2.insert(1);
+          s2.insert(2);
+          s2.insert(3);
+
+          s.intersect(s2);
+
+          assertArrayEquals(new int[] {}, s.toArray());
+     }
+
+     @Test
+     public void shouldIntersectSameValuesInBothArrays() {
+          Set s = new Set();
+          s.insert(0);
+          s.insert(1);
+
+          Set s2 = new Set();
+          s2.insert(0);
+          s2.insert(1);
+
+          s.intersect(s2);
+
+          assertArrayEquals(s2.toArray(), s.toArray());
+     }
+
+     @Test
+     public void shouldIntersectWithEmptyArray() {
+          Set s = new Set();
+          s.insert(0);
+          s.insert(1);
+
+          Set s2 = new Set();
+
+          s.intersect(s2);
+
+          assertArrayEquals(new int[] {}, s.toArray());
+     }
+
+     @Test
+     public void shouldIntersectEmptyArray() {
+          Set s = new Set();
+
+          Set s2 = new Set();
+          s.insert(0);
+          s.insert(1);
+
+          s.intersect(s2);
+
+          assertArrayEquals(new int[] {}, s.toArray());
      }
 
      /******************

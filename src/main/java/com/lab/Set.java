@@ -46,36 +46,34 @@ public class Set {
      }
 
      // a = [0,1,2]
-     // s = [1]
+     // s = [0]
      //
-     //
-     // 
-     // a = [1,2], i = 0, j = 1
-     // [1,2], i = 1, j = 1
-     // []
-     //
-     //
+     // a = [0,1,2] i = 1, j = 0
+     // a = [0,2] i = 1, j = 0
+     // a = [0,2] i = 1, j = 0
      //
      public void intersect(Set s) {
           int i = 0;
           int j = 0;
 
+          if (s.a.size() == 0) {
+               a.clear();
+               return;
+          }
+
           while (true) {
 
                if (a.get(i) != s.a.get(j)) {
                     a.remove(i);
-
-               } else if (i < a.size() - 1) {
-                    i++;
                }
-
-               if (j < s.a.size() - 1) {
+               i++;
+               if (j < s.a.size() - 1)
                     j++;
-               }
 
-               if (i >= a.size() - 1 && j == s.a.size() - 1) {
+               if (i > a.size() - 1) {
                     break;
                }
+
           }
      }
 
