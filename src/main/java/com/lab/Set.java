@@ -49,8 +49,11 @@ public class Set {
      // s = [1]
      //
      //
-     // [1,2], i = 0
-     // [1,2], i = 1
+     // 
+     // a = [1,2], i = 0, j = 1
+     // [1,2], i = 1, j = 1
+     // []
+     //
      //
      //
      public void intersect(Set s) {
@@ -59,7 +62,7 @@ public class Set {
 
           while (true) {
 
-               if (a.get(i) < s.a.get(j)) {
+               if (a.get(i) != s.a.get(j)) {
                     a.remove(i);
 
                } else if (i < a.size() - 1) {
