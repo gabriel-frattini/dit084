@@ -1,0 +1,57 @@
+setRequiredNumber:
+
+Input space: 0 <= nemployee and 0 <= starttime and 0 <= endtime
+
+Partition #1: nemployee = 0 and starttime > endtime
+test_m_part1: input: "nemployee = 0, starttime = 2, endtime = 1", expected: "requiredNumber unchanged"
+
+Partition #2: nemployee = 0 and starttime = endtime
+test_m_part2: input: "nemployee = 0, starttime = 1, endtime = 1", expected: "requiredNumber unchanged"
+
+Partition #3: nemployee = 0 and starttime < endtime
+test_m_part3: input: "nemployee = 0, starttime = 1, endtime = 2", expected: "requiredNumber is set to 0 and workingEmployees keeps a number of employees equal to nemployee, discarding the rest"
+
+Partition #4: nemployee >= 1 and starttime > endtime
+test_m_part4: input: "nemployee = 5, starttime = 2, endtime = 1", expected: "requiredNumber unchanged"
+
+Partition #5: nemployee >= 1 and starttime = endtime
+test_m_part5: input: "nemployee = 5, starttime = 1, endtime = 1", expected: "requiredNumber unchanged"
+
+Partition #6: nemployee >= 1 and starttime < endtime
+test_m_part6: input: "nemployee = 5, starttime = 1, endtime = 2", expected: "requiredNumber is set to 5 and workingEmployees keeps a number of employees equal to nemployee, discarding the rest"
+
+Border cases:
+test_m_border1: input: "nemployee = 0,       starttime = 0,       endtime = 0",       expected: "requiredNumber unchanged"
+test_m_border2: input: "nemployee = 0,       starttime = 0,       endtime = MAX_INT", expected: "?"
+test_m_border3: input: "nemployee = 0,       starttime = MAX_INT, endtime = 0",       expected: "requiredNumber unchanged"
+test_m_border4: input: "nemployee = 0,       starttime = MAX_INT, endtime = MAX_INT", expected: "requiredNumber unchanged"
+test_m_border5: input: "nemployee = MAX_INT, starttime = 0,       endtime = 0",       expected: "requiredNumber unchanged"
+test_m_border6: input: "nemployee = MAX_INT, starttime = 0,       endtime = MAX_INT", expected: "?"
+test_m_border7: input: "nemployee = MAX_INT, starttime = MAX_INT, endtime = 0",       expected: "requiredNumber unchanged"
+test_m_border8: input: "nemployee = MAX_INT, starttime = MAX_INT, endtime = MAX_INT", expected: "requiredNumber unchanged"
+
+Found bugs: ???.
+
+
+
+nextIncomplete:
+
+Input space: currenttime >= 0 and currenttime < size
+
+Partition #1: currenttime = 0
+test_m_part1: input: "currenttime = 0", expected: "?"
+
+Partition #2: currenttime >= 1 and currenttime < size
+test_m_part2: input: "currenttime = 5", expected: "?"
+
+Border cases:
+test_m_border1: input: "currenttime = MAX_INT", expected: "?"
+
+Found bugs: ???.
+
+Frågor:
+
+Vad är workingEnployees och size? Ska vi anta något nummer?
+Vad händer vid loopar med MAX_INT?
+Är testet 0, 0, 0 samma som testet nemployee = 0, starttime = endtime
+Vad menas med "Implement at least one test case"?
