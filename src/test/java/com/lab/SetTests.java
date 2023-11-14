@@ -1,14 +1,7 @@
 package com.lab;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-
-import org.junit.jupiter.api.Test;
-
 import java.util.function.IntBinaryOperator;
-
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SetTests {
@@ -78,21 +71,21 @@ class SetTests {
      @Test
      public void emptySetShouldHaveNoMember() {
           Set s = new Set();
-          assertTrue(s.member(0) == false);
+         assertFalse(s.member(0));
      }
 
      @Test
      public void insertShouldNotHaveMemberWithHigherValue() {
           Set s = new Set();
           s.insert(0);
-          assertTrue(s.member(1) == false);
+         assertFalse(s.member(1));
      }
 
      @Test
      public void insertShouldNotHaveMemberWithLowerValue() {
           Set s = new Set();
           s.insert(1);
-          assertTrue(s.member(0) == false);
+         assertFalse(s.member(0));
      }
 
      /******************

@@ -4,7 +4,8 @@ import java.util.*;
 import java.util.function.IntBinaryOperator;
 
 public class Set {
-     private ArrayList<Integer> a;
+
+     private final ArrayList<Integer> a;
 
      public Set() {
           a = new ArrayList<Integer>();
@@ -23,7 +24,8 @@ public class Set {
                if (a.get(i) > x) {
                     a.add(i, x);
                     return;
-               } else {
+               }
+               else {
                     if (a.get(i) == x) {
                          break;
                     }
@@ -36,7 +38,8 @@ public class Set {
           for (int i = 0; i < a.size(); i++) {
                if (a.get(i) > x) {
                     return false;
-               } else {
+               }
+               else {
                     if (a.get(i) == x) {
                          return true;
                     }
@@ -45,41 +48,27 @@ public class Set {
           return false;
      }
 
-     // a = [0,1,2]
-     // s = [0]
-     //
-     // a = [0,1,2] i = 1, j = 0
-     // a = [0,2] i = 1, j = 0
-     // a = [0,2] i = 1, j = 0
-     //
      public void intersect(Set s) {
           int i = 0;
           int j = 0;
-
-          if (s.a.size() == 0) {
+          if (s.a.isEmpty()) {
                a.clear();
                return;
           }
-
           while (true) {
-
                if (a.get(i) != s.a.get(j)) {
                     a.remove(i);
                }
                i++;
-               if (j < s.a.size() - 1)
+               if (j < s.a.size() - 1) {
                     j++;
-
+               }
                if (i > a.size() - 1) {
                     break;
                }
-
           }
      }
 
-     // Try with:
-     // (a, b) -> a + b;
-     // (a, b) -> a - b;
      public boolean distinctClosed(IntBinaryOperator f) {
           int vi, vj;
           for (int i = 0; i < a.size(); i++) {
