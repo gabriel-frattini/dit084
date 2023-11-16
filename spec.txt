@@ -20,7 +20,7 @@ test_m_part5: input: "nemployee = 2, starttime = 0, endtime = 0", expected: requ
 Partition #6: nemployee >= 1 and starttime < endtime
 test_m_part6: input: "nemployee = 2, starttime = 0, endtime = 1", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
 
-Found bugs: ???.
+Found bugs: None.
 
 nextIncomplete:
 
@@ -35,4 +35,5 @@ test_m_part2: input: "currenttime = 5", expected: "?"
 Border cases:
 test_m_border1: input: "currenttime = 0", expected: "?"
 
-Found bugs: ???.
+Found bugs:
+If constructor of WorkSchedule is called with a number <= endtime, nextIncomplete throws an IndexOutOfBoundsException.
