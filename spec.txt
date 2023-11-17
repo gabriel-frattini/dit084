@@ -20,20 +20,16 @@ test_m_part5: input: "nemployee = 2, starttime = 0, endtime = 0", expected: requ
 Partition #6: nemployee >= 1 and starttime < endtime
 test_m_part6: input: "nemployee = 2, starttime = 0, endtime = 1", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
 
-Found bugs: None.
+Found bugs: None
 
 nextIncomplete:
 
-Input space: currenttime >= 0 and currenttime < size
+Input space: 0 <= currentTime and currentTime < size
 
-Partition #1: currenttime = 0
-test_m_part1: input: "currenttime = 0", expected: "?"
+Partition #1: currentTime = 0
+test_m_part1: input: "currentTime = 0", expected: returns the time of the hour closest to currentTime such that the length of workingEmployees is less that requiredNumber
 
-Partition #2: currenttime >= 1 and currenttime < size
-test_m_part2: input: "currenttime = 5", expected: "?"
+Partition #2: currentTime >= 1 and currentTime < size
+test_m_part2: input: "currentTime = 5", expected: returns the time of the hour closest to currentTime such that the length of workingEmployees is less that requiredNumber
 
-Border cases:
-test_m_border1: input: "currenttime = 0", expected: "?"
-
-Found bugs:
-If constructor of WorkSchedule is called with a number <= endtime, nextIncomplete throws an IndexOutOfBoundsException.
+Found bugs: If constructor of WorkSchedule is called with a number <= endtime, nextIncomplete throws an IndexOutOfBoundsException
