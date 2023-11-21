@@ -5,7 +5,7 @@ package com.lab.lab2;
 // (powered by FernFlower decompiler)
 //
 
-class Dates {
+public class Dates {
     Dates() {
     }
 
@@ -22,7 +22,7 @@ class Dates {
         int laterDayInYear = 0;
 
         int aMonth;
-        for(aMonth = 0; aMonth < someMonth; ++aMonth) {
+        for(aMonth = 1; aMonth < someMonth; ++aMonth) {
             someDayInYear += daysInMonth(aMonth);
         }
 

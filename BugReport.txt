@@ -1,0 +1,8 @@
+
+
+Bug on line 13:
+- month 7 has 31 days but daysInMonth returns 30 for that month;
+- February has 28 days (29 each leep year) but daysInMonth only returns 31 or 30.
+
+Bug on line 25:
+- The for-loop should start at 1 instead of 0, otherwise someDayInYear gets incremented at month 1 when it should not.

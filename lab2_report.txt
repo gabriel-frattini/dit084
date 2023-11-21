@@ -1,4 +1,6 @@
 
+
+3.2
 All local variables inside Dates.main:
 
 someMonth
@@ -9,3 +11,6 @@ someDayInYear
 laterDayInYear
 aMonth
 daysBetween
+
+3.3
+The method is called `daysInMonth` and is on line 12.
