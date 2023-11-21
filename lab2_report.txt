@@ -1,2 +1,11 @@
 
 All local variables inside Dates.main:
+
+someMonth
+someDay
+laterMonth
+laterDay
+someDayInYear
+laterDayInYear
+aMonth
+daysBetween
