@@ -1,4 +1,4 @@
-package com.lab;
+package com.lab.lab1;
 
 import java.util.function.IntBinaryOperator;
 import org.junit.jupiter.api.Test;
@@ -179,10 +179,10 @@ class SetTests {
      @Test
      public void distinctClosedFalse() {
           Set s = new Set();
-          s.insert(1);
-          s.insert(2);
+          s.insert(-1);
+          s.insert(0);
 
-          IntBinaryOperator f = (a, b) -> a + b;
+          IntBinaryOperator f = (a, b) -> a - b;
 
           assertFalse(s.distinctClosed(f));
      }

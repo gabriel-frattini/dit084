@@ -22,7 +22,10 @@ test_m_part5: input: "nemployee = 2, starttime = 0, endtime = 0", expected: requ
 Partition #6: nemployee >= 1 and starttime < endtime
 test_m_part6: input: "nemployee = 2, starttime = 0, endtime = 1", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
 
-Found bugs: None
+Border cases:
+test_m_border1: input: "nemployee = 2, starttime = 0, endtime = MAX_INT", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
+
+Found bugs: If endtime is equal to MAX_INT then the program throws an error "Requested array size exceeds VM limit"
 
 -----------------------------------------------------------------------------------------------------------------------
 nextIncomplete:
@@ -30,10 +33,11 @@ nextIncomplete:
 
 Input space: 0 <= currentTime and currentTime < size
 
-Partition #1: currentTime = 0
-test_m_part1: input: "currentTime = 0", expected: returns the time of the hour closest to currentTime such that the length of workingEmployees is less that requiredNumber
+Partition #1: currentTime = 0 and next incomplete schedule is 3-5
+test_m_part1: input: "currentTime = 0", expected: returns the time of the hour closest to currentTime such that the length of workingEmployees is less that requiredNumber (3)
 
-Partition #2: currentTime >= 1 and currentTime < size
-test_m_part2: input: "currentTime = 5", expected: returns the time of the hour closest to currentTime such that the length of workingEmployees is less that requiredNumber
+Partition #2: currentTime >= 1 and currentTime < size and next incomplete schedule is 3-5
+test_m_part2: input: "currentTime = 1", expected: returns the time of the hour closest to currentTime such that the length of workingEmployees is less that requiredNumber (3)
 
-Found bugs: If constructor of WorkSchedule is called with a number <= endtime, nextIncomplete throws an IndexOutOfBoundsException
+Found bugs: It does not return the CLOSEST time starting for which the required amount of employees has not yet been scheduled, but the FURTHEST/LAST time
+If constructor of WorkSchedule is called with a number <= endtime, nextIncomplete throws an IndexOutOfBoundsException.

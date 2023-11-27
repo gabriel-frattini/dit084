@@ -1,4 +1,4 @@
-package com.lab;
+package com.lab.lab1;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +16,8 @@ public class SetRequiredNumberTests {
           // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds one employee
           WorkSchedule workSchedule = new WorkSchedule(2);
           workSchedule.setRequiredNumber(1, 0, 1);
-          workSchedule.addWorkingPeriod("TestEmployee", 0, 1);
+          workSchedule.addWorkingPeriod("TestEmployee1", 0, 1);
+          workSchedule.addWorkingPeriod("TestEmployee2", 0, 1);
 
           // Saves schedule before call, calls setRequiredNumber, saves schedule after call
           Hour scheduleHour0Before = workSchedule.readSchedule(0);
@@ -41,7 +42,8 @@ public class SetRequiredNumberTests {
           // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds one employee
           WorkSchedule workSchedule = new WorkSchedule(2);
           workSchedule.setRequiredNumber(1, 0, 1);
-          workSchedule.addWorkingPeriod("TestEmployee", 0, 1);
+          workSchedule.addWorkingPeriod("TestEmployee1", 0, 1);
+          workSchedule.addWorkingPeriod("TestEmployee2", 0, 1);
 
           // Saves schedule before call, calls setRequiredNumber, saves schedule after call
           Hour scheduleHour1Before = workSchedule.readSchedule(1);
@@ -66,8 +68,9 @@ public class SetRequiredNumberTests {
 
           // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds one employee
           WorkSchedule workSchedule = new WorkSchedule(3);
-          workSchedule.setRequiredNumber(1, 0, 2);
-          workSchedule.addWorkingPeriod("TestEmployee", 0, 2);
+          workSchedule.setRequiredNumber(2, 0, 2);
+          workSchedule.addWorkingPeriod("TestEmployee1", 0, 2);
+          workSchedule.addWorkingPeriod("TestEmployee2", 0, 2);
 
           // Saves schedule before call, calls setRequiredNumber, saves schedule after call
           Hour scheduleHour2Before = workSchedule.readSchedule(2);
@@ -96,7 +99,8 @@ public class SetRequiredNumberTests {
           // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds one employee
           WorkSchedule workSchedule = new WorkSchedule(2);
           workSchedule.setRequiredNumber(1, 0, 1);
-          workSchedule.addWorkingPeriod("TestEmployee", 0, 1);
+          workSchedule.addWorkingPeriod("TestEmployee1", 0, 1);
+          workSchedule.addWorkingPeriod("TestEmployee2", 0, 1);
 
           // Saves schedule before call, calls setRequiredNumber, saves schedule after call
           Hour scheduleHour0Before = workSchedule.readSchedule(0);
@@ -121,7 +125,8 @@ public class SetRequiredNumberTests {
           // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds one employee
           WorkSchedule workSchedule = new WorkSchedule(2);
           workSchedule.setRequiredNumber(1, 0, 1);
-          workSchedule.addWorkingPeriod("TestEmployee", 0, 1);
+          workSchedule.addWorkingPeriod("TestEmployee1", 0, 1);
+          workSchedule.addWorkingPeriod("TestEmployee2", 0, 1);
 
           // Saves schedule before call, calls setRequiredNumber, saves schedule after call
           Hour scheduleHour0Before = workSchedule.readSchedule(0);
@@ -148,7 +153,40 @@ public class SetRequiredNumberTests {
           // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds one employee
           WorkSchedule workSchedule = new WorkSchedule(3);
           workSchedule.setRequiredNumber(1, 0, 2);
-          workSchedule.addWorkingPeriod("TestEmployee", 0, 2);
+          workSchedule.addWorkingPeriod("TestEmployee1", 0, 2);
+          workSchedule.addWorkingPeriod("TestEmployee2", 0, 2);
+
+          // Saves schedule before call, calls setRequiredNumber, saves schedule after call
+          Hour scheduleHour0Before = workSchedule.readSchedule(0);
+          Hour scheduleHour1Before = workSchedule.readSchedule(1);
+          Hour scheduleHour2Before = workSchedule.readSchedule(2);
+          workSchedule.setRequiredNumber(nemployee, starttime, endtime);
+          Hour scheduleHour0After = workSchedule.readSchedule(0);
+          Hour scheduleHour1After = workSchedule.readSchedule(1);
+          Hour scheduleHour2After = workSchedule.readSchedule(2);
+
+          // Test for hour 0 and 1
+          assertEquals(nemployee, scheduleHour0After.requiredNumber);
+          assertArrayEquals(scheduleHour0Before.workingEmployees, scheduleHour0After.workingEmployees);
+          assertEquals(nemployee, scheduleHour1After.requiredNumber);
+          assertArrayEquals(scheduleHour1Before.workingEmployees, scheduleHour1After.workingEmployees);
+
+          // Test for rest of the schedule (hour 2)
+          assertEquals(scheduleHour2Before.requiredNumber, scheduleHour2After.requiredNumber);
+          assertArrayEquals(scheduleHour2Before.workingEmployees, scheduleHour2After.workingEmployees);
+     }
+
+     @Test
+     public void test_m_border1() {
+          int nemployee = 2;
+          int starttime = 0;
+          int endtime = Integer.MAX_VALUE;
+
+          // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds one employee
+          WorkSchedule workSchedule = new WorkSchedule(Integer.MAX_VALUE);
+          workSchedule.setRequiredNumber(1, 0, 2);
+          workSchedule.addWorkingPeriod("TestEmployee1", 0, 2);
+          workSchedule.addWorkingPeriod("TestEmployee2", 0, 2);
 
           // Saves schedule before call, calls setRequiredNumber, saves schedule after call
           Hour scheduleHour0Before = workSchedule.readSchedule(0);
