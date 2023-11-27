@@ -27,7 +27,7 @@ public class Set {
                }
                else {
                     if (a.get(i) == x) {
-                         break;
+                         return;
                     }
                }
           }
@@ -58,6 +58,7 @@ public class Set {
           while (true) {
                if (a.get(i) != s.a.get(j)) {
                     a.remove(i);
+                    i--;
                }
                i++;
                if (j < s.a.size() - 1) {
