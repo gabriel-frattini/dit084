@@ -1,0 +1,44 @@
+-----------------------------------------------------------------------------------------------------------------------
+insert:
+-----------------------------------------------------------------------------------------------------------------------
+
+Motivation for tests:
+We wanted to test that the class invariant is not violated after an insert operation, i.e. that there are no duplicate
+elements in the set and that the set is sorted in ascending order.
+
+Bugs found:
+insert would insert duplicate elements into the set.
+
+-----------------------------------------------------------------------------------------------------------------------
+member:
+-----------------------------------------------------------------------------------------------------------------------
+
+Motivation for tests:
+Test that the member method returns true if the element is in the set and false otherwise.
+
+Bugs found:
+None.
+
+-----------------------------------------------------------------------------------------------------------------------
+intersect:
+-----------------------------------------------------------------------------------------------------------------------
+
+Motivation for tests:
+Test that the intersect method returns the intersection of two sets by checking various cases like when the inserted set is
+empty, equal, a subset, a superset, or completely disjoint from the set.
+
+Bugs found:
+Yes, the intersect method would not return the correct intersection of two sets.
+
+-----------------------------------------------------------------------------------------------------------------------
+distinctClosed:
+-----------------------------------------------------------------------------------------------------------------------
+
+Motivation for tests:
+Test that the distinctClosed method returns true if the result of f(a,b) is in the set of {a,b} by checking two cases,
+one where the operation is addition and the other where the operation is minus to check that the method handles
+both positive and negative correctly.
+
+
+Bugs found:
+Yes, the distinctClosed method would not handle minus of two negative numbers correctly.
