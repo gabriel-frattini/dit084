@@ -4,28 +4,31 @@ setRequiredNumber:
 
 Input space: 0 <= nemployee and 0 <= starttime and 0 <= endtime
 
+All tests start with two employees
+
 Partition #1: nemployee = 0 and starttime > endtime
 test_m_part1: input: "nemployee = 0, starttime = 1, endtime = 0", expected: the schedule is unchanged
 
 Partition #2: nemployee = 0 and starttime = endtime
-test_m_part2: input: "nemployee = 0, starttime = 0, endtime = 0", expected: requiredNumber is set to nemployee AND workingEmployees keeps a number of employees equal to nemployee, discarding the rest AND the rest of the schedule is unchanged
+test_m_part2: input: "nemployee = 0, starttime = 0, endtime = 0", expected: requiredNumber is set to nemployee AND workingEmployees keeps a number of employees equal to nemployee, discarding the rest (the two employees should be removed) AND the rest of the schedule is unchanged
 
 Partition #3: nemployee = 0 and starttime < endtime
-test_m_part3: input: "nemployee = 0, starttime = 0, endtime = 1", expected: requiredNumber is set to nemployee AND workingEmployees keeps a number of employees equal to nemployee, discarding the rest AND the rest of the schedule is unchanged
+test_m_part3: input: "nemployee = 0, starttime = 0, endtime = 1", expected: requiredNumber is set to nemployee AND workingEmployees keeps a number of employees equal to nemployee, discarding the rest (the two employees should be removed) AND the rest of the schedule is unchanged
 
 Partition #4: nemployee >= 1 and starttime > endtime
-test_m_part4: input: "nemployee = 2, starttime = 1, endtime = 0", expected: the schedule is unchanged
+test_m_part4: input: "nemployee = 3, starttime = 1, endtime = 0", expected: the schedule is unchanged
 
 Partition #5: nemployee >= 1 and starttime = endtime
-test_m_part5: input: "nemployee = 2, starttime = 0, endtime = 0", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
+test_m_part5: input: "nemployee = 3, starttime = 0, endtime = 0", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
 
 Partition #6: nemployee >= 1 and starttime < endtime
-test_m_part6: input: "nemployee = 2, starttime = 0, endtime = 1", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
+test_m_part6: input: "nemployee = 3, starttime = 0, endtime = 1", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
 
 Border cases:
 test_m_border1: input: "nemployee = 2, starttime = 0, endtime = MAX_INT", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
 
-Found bugs: If endtime is equal to MAX_INT then the program throws an error "Requested array size exceeds VM limit"
+Found bugs: If endtime is equal to MAX_INT then the program throws an error "Requested array size exceeds VM limit".
+If constructor of WorkSchedule is called with a number <= endtime, setRequiredNumber throws an IndexOutOfBoundsException.
 
 -----------------------------------------------------------------------------------------------------------------------
 nextIncomplete:
@@ -36,8 +39,21 @@ Input space: 0 <= currentTime and currentTime < size
 Partition #1: currentTime = 0 and next incomplete schedule is 3-5
 test_m_part1: input: "currentTime = 0", expected: returns the time of the hour closest to currentTime such that the length of workingEmployees is less that requiredNumber (3)
 
-Partition #2: currentTime >= 1 and currentTime < size and next incomplete schedule is 3-5
-test_m_part2: input: "currentTime = 1", expected: returns the time of the hour closest to currentTime such that the length of workingEmployees is less that requiredNumber (3)
+Partition #2: currentTime >= 1 and currentTime < size and there is no incomplete schedule
+test_m_part2: input: "currentTime = 1", expected: returns -1
 
-Found bugs: It does not return the CLOSEST time starting for which the required amount of employees has not yet been scheduled, but the FURTHEST/LAST time
+Partition #3: currentTime >= 1 and currentTime < size and there is no incomplete schedule, but there is a change of employee in the schedule
+test_m_part3: input: "currentTime = 1", expected: returns -1
+
+Partition #4: currentTime >= 1 and currentTime < size, there is no incomplete schedule but a hour with too many scheduled employees
+test_m_part4: input: "currentTime = 1", expected: returns -1
+
+Partition #5: currentTime >= 1 and next incomplete schedule is 6-7 (separate call to setRequiredNumber), but there is a complete schedule 3-5
+test_m_part5: input: "currentTime = 1", expected: returns 6
+
+Partition #5: currentTime >= 1 and the schedule is complete 3-5 but not 6-7 (no separate call to setRequiredNumber)
+test_m_part5: input: "currentTime = 1", expected: returns 6
+
+Found bugs: It does not return the closest hour starting for which the required amount of employees has not yet been scheduled, it seems to return the furthest/last hour (endtime in setRequiredNumber).
+If there are too many scheduled employees it dose not return -1, even though there is no hour when the length of workingEmployees is less that requiredNumber
 If constructor of WorkSchedule is called with a number <= endtime, nextIncomplete throws an IndexOutOfBoundsException.
