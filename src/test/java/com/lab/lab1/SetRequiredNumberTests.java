@@ -13,9 +13,9 @@ public class SetRequiredNumberTests {
           int starttime = 1;
           int endtime = 0;
 
-          // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds one employee
+          // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds two employee
           WorkSchedule workSchedule = new WorkSchedule(2);
-          workSchedule.setRequiredNumber(1, 0, 1);
+          workSchedule.setRequiredNumber(2, 0, 1);
           workSchedule.addWorkingPeriod("TestEmployee1", 0, 1);
           workSchedule.addWorkingPeriod("TestEmployee2", 0, 1);
 
@@ -39,9 +39,9 @@ public class SetRequiredNumberTests {
           int starttime = 0;
           int endtime = 0;
 
-          // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds one employee
+          // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds two employee
           WorkSchedule workSchedule = new WorkSchedule(2);
-          workSchedule.setRequiredNumber(1, 0, 1);
+          workSchedule.setRequiredNumber(2, 0, 1);
           workSchedule.addWorkingPeriod("TestEmployee1", 0, 1);
           workSchedule.addWorkingPeriod("TestEmployee2", 0, 1);
 
@@ -66,7 +66,7 @@ public class SetRequiredNumberTests {
           int starttime = 0;
           int endtime = 1;
 
-          // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds one employee
+          // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds two employee
           WorkSchedule workSchedule = new WorkSchedule(3);
           workSchedule.setRequiredNumber(2, 0, 2);
           workSchedule.addWorkingPeriod("TestEmployee1", 0, 2);
@@ -92,13 +92,13 @@ public class SetRequiredNumberTests {
 
      @Test
      public void test_m_part4() {
-          int nemployee = 2;
+          int nemployee = 3;
           int starttime = 1;
           int endtime = 0;
 
-          // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds one employee
+          // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds two employee
           WorkSchedule workSchedule = new WorkSchedule(2);
-          workSchedule.setRequiredNumber(1, 0, 1);
+          workSchedule.setRequiredNumber(2, 0, 1);
           workSchedule.addWorkingPeriod("TestEmployee1", 0, 1);
           workSchedule.addWorkingPeriod("TestEmployee2", 0, 1);
 
@@ -118,13 +118,13 @@ public class SetRequiredNumberTests {
 
      @Test
      public void test_m_part5() {
-          int nemployee = 2;
+          int nemployee = 3;
           int starttime = 0;
           int endtime = 0;
 
-          // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds one employee
+          // Preparation, creates a WorkSchedule (with hour 0 and 1) and adds two employee
           WorkSchedule workSchedule = new WorkSchedule(2);
-          workSchedule.setRequiredNumber(1, 0, 1);
+          workSchedule.setRequiredNumber(2, 0, 1);
           workSchedule.addWorkingPeriod("TestEmployee1", 0, 1);
           workSchedule.addWorkingPeriod("TestEmployee2", 0, 1);
 
@@ -146,13 +146,13 @@ public class SetRequiredNumberTests {
 
      @Test
      public void test_m_part6() {
-          int nemployee = 2;
+          int nemployee = 3;
           int starttime = 0;
           int endtime = 1;
 
-          // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds one employee
+          // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds two employee
           WorkSchedule workSchedule = new WorkSchedule(3);
-          workSchedule.setRequiredNumber(1, 0, 2);
+          workSchedule.setRequiredNumber(2, 0, 2);
           workSchedule.addWorkingPeriod("TestEmployee1", 0, 2);
           workSchedule.addWorkingPeriod("TestEmployee2", 0, 2);
 
@@ -178,13 +178,13 @@ public class SetRequiredNumberTests {
 
      @Test
      public void test_m_border1() {
-          int nemployee = 2;
+          int nemployee = 3;
           int starttime = 0;
           int endtime = Integer.MAX_VALUE;
 
-          // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds one employee
+          // Preparation, creates a WorkSchedule (with hour 0, 1, ..., MAX_INT) and adds two employee
           WorkSchedule workSchedule = new WorkSchedule(Integer.MAX_VALUE);
-          workSchedule.setRequiredNumber(1, 0, 2);
+          workSchedule.setRequiredNumber(2, 0, 2);
           workSchedule.addWorkingPeriod("TestEmployee1", 0, 2);
           workSchedule.addWorkingPeriod("TestEmployee2", 0, 2);
 
