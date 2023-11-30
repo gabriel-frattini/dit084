@@ -17,11 +17,17 @@ class CircularMemory
     cells := new int[cap];
     read_position, write_position := 0, 0;
     isFlipped := false;
-    read_position := 0;
-    write_position := 0;
   }
 
-  predicate Valid() {...}
+  predicate Valid() 
+       reads this
+  {
+       cells.Length > 0 &&
+       read_position >= 0 &&
+       write_position >= 0 &&
+       (!isFlipped ==> read_position <= write_position)
+  }
+
 
   method Read() returns (isSuccess : bool, content : int)
     modifies this
