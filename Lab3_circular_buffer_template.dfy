@@ -7,12 +7,20 @@ class CircularMemory
   var write_position : int;
   var isFlipped : bool;
 
-  constructor Init(cap : int) {...}
-  // pre-conditions
-  // isFlipped = false
-  // Buffer is Empty?
-  // read_position = 0
-  // write_position = 0
+  constructor Init(cap : int) 
+    requires cap > 0
+    ensures cells.Length == cap
+    ensures read_position == 0
+    ensures write_position == 0
+    ensures !isFlipped
+  {
+    cells := new int[cap];
+    read_position, write_position := 0, 0;
+    isFlipped := false;
+    read_position := 0;
+    write_position := 0;
+  }
+
   predicate Valid() {...}
 
   method Read() returns (isSuccess : bool, content : int)
