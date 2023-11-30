@@ -38,7 +38,7 @@ class CircularMemory
   predicate isFull()
      reads this
   {
-       isFlipped
+       isFlipped && read_position < write_position
   }
 
 
@@ -46,12 +46,11 @@ class CircularMemory
     modifies this
     requires Valid()
     ensures  Valid()
-    ensures  isSuccess ==> old(read_position) + 1 = read_position
-    ensures !isSuccess ==> old(read_position) = read_position
-
+    ensures  isSuccess ==> old(read_position) + 1 = read_position && content != 0
+    ensures !isSuccess ==> old(read_position) == read_position && content == 0
    
-    var isSuccess: bool = false;
-    var content: int = 0;
+    var isSuccess: bool := false;
+    var content: int := 0;
      
     if(!isFlipped && write_position == read_position)
     {
@@ -67,18 +66,28 @@ class CircularMemory
     modifies this
     requires Valid()
     ensures  Valid()
-    ensures  isSuccess ==> ...
-    ensures !isSuccess ==> ...
+    ensures  isSuccess ==> old(write_position) + 1 == write_position && 
+                           input == cells[write_position]
+
+    ensures !isSuccess ==> old(write_position) == write_position 
   {
-    if(isFlipped)
-    {
-      ...
-    }
-    else // not flipped
-    {
-      ...
-    }
+
+    var isSuccess: bool := false;
+
+       if(isFlipped && read_position == write_position)
+       {
+            return;
+       }
+       isSuccess := true;
+       cells[write_position] := input;
+
+       if(write_position == cells.Length - 1) 
+       {
+          write_position := 0;
+       }
+       else
+       {
+          write_position := write_position + 1;
+       }
   }
-
-
 }
