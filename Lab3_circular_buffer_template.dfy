@@ -2,10 +2,10 @@
 // This class implements a cicular buffer with with 2 int typed pointers
 class CircularMemory
 {
-  var cells : array<int>;
-  var read_position : int;
-  var write_position : int;
-  var isFlipped : bool;
+  var cells : array<int>
+  var read_position : int
+  var write_position : int
+  var isFlipped : bool
 
   constructor Init(cap : int) 
     requires cap > 0
@@ -26,6 +26,7 @@ class CircularMemory
        cells.Length > 0 &&
        read_position >= 0 &&
        write_position >= 0 &&
+       cells.Length > write_position &&
        (!isFlipped ==> read_position <= write_position)
   }
 
@@ -43,40 +44,42 @@ class CircularMemory
 
 
   method Read() returns (isSuccess : bool, content : int)
+
     modifies this
     requires Valid()
     ensures  Valid()
-    ensures  isSuccess ==> old(read_position) + 1 = read_position && content != 0
+    ensures  isSuccess ==> old(read_position) + 1 == read_position && content != 0
     ensures !isSuccess ==> old(read_position) == read_position && content == 0
-   
-    var isSuccess: bool := false;
-    var content: int := 0;
+  {
+    var isSuccess: bool;
+    var content: int;
      
-    if(!isFlipped && write_position == read_position)
-    {
-         return;
-    }
-
-    content := cells[read_position];       
-    read_position := read_position + 1;
-    isSuccess := true;
+     if(!isFlipped && write_position == read_position)
+     {
+          isSuccess := false;
+          content := 0;
+     }
+     else
+     {
+          content := cells[read_position];       
+          read_position := read_position + 1;
+          isSuccess := true;
+     }
   }
 
   method Write(input : int) returns (isSuccess : bool)
     modifies this
     requires Valid()
     ensures  Valid()
-    ensures  isSuccess ==> old(write_position) + 1 == write_position && 
-                           input == cells[write_position]
-
+    ensures  isSuccess ==> old(write_position) + 1 == write_position && input == cells[write_position]
     ensures !isSuccess ==> old(write_position) == write_position 
   {
 
-    var isSuccess: bool := false;
+    var isSuccess: bool;
 
        if(isFlipped && read_position == write_position)
        {
-            return;
+            isSuccess := false;
        }
        isSuccess := true;
        cells[write_position] := input;
