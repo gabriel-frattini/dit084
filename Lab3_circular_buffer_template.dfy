@@ -13,6 +13,7 @@ class CircularMemory
     ensures read_position == 0
     ensures write_position == 0
     ensures !isFlipped
+    ensures fresh(cells);
     ensures Valid()
   {
     cells := new int[cap];
@@ -23,11 +24,11 @@ class CircularMemory
   predicate Valid() 
        reads this
   {
-       cells.Length > 0 &&
+       cells.Length >= 0 &&
        read_position >= 0 &&
        write_position >= 0 &&
-       cells.Length > write_position &&
-       (!isFlipped ==> read_position <= write_position)
+       cells.Length > write_position
+       
   }
 
   predicate isEmpty()
@@ -45,52 +46,75 @@ class CircularMemory
 
   method Read() returns (isSuccess : bool, content : int)
 
-    modifies this
+    modifies this, this.cells
     requires Valid()
     ensures  Valid()
-    ensures  isSuccess ==> old(read_position) + 1 == read_position && content != 0
+    ensures  isSuccess ==> old(read_position) + 1 == read_position
     ensures !isSuccess ==> old(read_position) == read_position && content == 0
   {
-    var isSuccess: bool;
-    var content: int;
      
-     if(!isFlipped && write_position == read_position)
+     if((!isFlipped && write_position == read_position)  || read_position >= cells.Length)
      {
           isSuccess := false;
           content := 0;
      }
      else
      {
+          isSuccess := true;
           content := cells[read_position];       
           read_position := read_position + 1;
-          isSuccess := true;
      }
   }
 
   method Write(input : int) returns (isSuccess : bool)
-    modifies this
+    modifies this, this.cells
     requires Valid()
     ensures  Valid()
-    ensures  isSuccess ==> old(write_position) + 1 == write_position && input == cells[write_position]
+    ensures  isSuccess ==> 
+    ((old(write_position) + 1 == write_position && write_position < cells.Length) 
+    ||
+    (write_position == 0 && old(write_position) == cells.Length - 1))
+     && 
+     input == cells[old(write_position)]
     ensures !isSuccess ==> old(write_position) == write_position 
   {
-
-    var isSuccess: bool;
 
        if(isFlipped && read_position == write_position)
        {
             isSuccess := false;
        }
-       isSuccess := true;
-       cells[write_position] := input;
+	
+        else 
+	{
+	isSuccess := true;
+	cells[write_position] := input;
 
        if(write_position == cells.Length - 1) 
        {
           write_position := 0;
        }
+
        else
        {
           write_position := write_position + 1;
        }
+
+      }
+     }
+
+	method Main() 
+    {
+   	 
+    var buff := new CircularMemory.Init(5);
+
+    res := buff.Write(1);  
+    res := buff.Write(2);  
+    res := buff.Write(3); 
+
+    var x,y := buff.Read();
+    x,y := buff.Read();
+    x,y := buff.Read();
   }
+
 }
+
