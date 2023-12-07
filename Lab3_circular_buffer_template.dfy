@@ -102,19 +102,4 @@ class CircularMemory
       }
      }
 
-	method Main() 
-    {
-   	 
-    var buff := new CircularMemory.Init(5);
-
-    res := buff.Write(1);  
-    res := buff.Write(2);  
-    res := buff.Write(3); 
-
-    var x,y := buff.Read();
-    x,y := buff.Read();
-    x,y := buff.Read();
-  }
-
 }
-
