@@ -22,12 +22,14 @@ Partition #5: nemployee >= 1 and starttime = endtime
 test_m_part5: input: "nemployee = 3, starttime = 0, endtime = 0", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
 
 Partition #6: nemployee >= 1 and starttime < endtime
-test_m_part6: input: "nemployee = 3, starttime = 0, endtime = 1", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
+test_m_part6: input: "nemployee = 3, starttime = 0, endtime = 1", expected: requiredNumber is set to nemployee AND workingEmployees keeps a number of employees equal to nemployee, discarding the rest (two employees should be removed) AND the rest of the schedule is unchanged
 
 Border cases:
 test_m_border1: input: "nemployee = 2, starttime = 0, endtime = MAX_INT", expected: requiredNumber is set to nemployee AND workingEmployees is unchanged AND the rest of the schedule is unchanged
 
-Found bugs: If endtime is equal to MAX_INT then the program throws an error "Requested array size exceeds VM limit".
+Found bugs:
+If requiredNumber is decreased to a nonzero number, workingEmployees keeps a number of employees less than nemployee.
+If endtime is equal to MAX_INT then the program throws an error "Requested array size exceeds VM limit".
 If constructor of WorkSchedule is called with a number <= endtime, setRequiredNumber throws an IndexOutOfBoundsException.
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -54,6 +56,7 @@ test_m_part5: input: "currentTime = 1", expected: returns 6
 Partition #5: currentTime >= 1 and the schedule is complete 3-5 but not 6-7 (no separate call to setRequiredNumber)
 test_m_part5: input: "currentTime = 1", expected: returns 6
 
-Found bugs: It does not return the closest hour starting for which the required amount of employees has not yet been scheduled, it seems to return the furthest/last hour (endtime in setRequiredNumber).
+Found bugs:
+It does not return the closest hour starting for which the required amount of employees has not yet been scheduled, it seems to return the furthest/last hour (endtime in setRequiredNumber).
 If there are too many scheduled employees it dose not return -1, even though there is no hour when the length of workingEmployees is less that requiredNumber
 If constructor of WorkSchedule is called with a number <= endtime, nextIncomplete throws an IndexOutOfBoundsException.

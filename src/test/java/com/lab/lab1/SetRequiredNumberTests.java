@@ -150,26 +150,27 @@ public class SetRequiredNumberTests {
           int starttime = 0;
           int endtime = 1;
 
-          // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds two employee
+          // Preparation, creates a WorkSchedule (with hour 0, 1 and 2) and adds three employee
           WorkSchedule workSchedule = new WorkSchedule(3);
-          workSchedule.setRequiredNumber(2, 0, 2);
+          workSchedule.setRequiredNumber(5, 0, 2);
           workSchedule.addWorkingPeriod("TestEmployee1", 0, 2);
           workSchedule.addWorkingPeriod("TestEmployee2", 0, 2);
+          workSchedule.addWorkingPeriod("TestEmployee3", 0, 2);
+          workSchedule.addWorkingPeriod("TestEmployee4", 0, 2);
+          workSchedule.addWorkingPeriod("TestEmployee5", 0, 2);
 
           // Saves schedule before call, calls setRequiredNumber, saves schedule after call
-          Hour scheduleHour0Before = workSchedule.readSchedule(0);
-          Hour scheduleHour1Before = workSchedule.readSchedule(1);
           Hour scheduleHour2Before = workSchedule.readSchedule(2);
           workSchedule.setRequiredNumber(nemployee, starttime, endtime);
           Hour scheduleHour0After = workSchedule.readSchedule(0);
           Hour scheduleHour1After = workSchedule.readSchedule(1);
           Hour scheduleHour2After = workSchedule.readSchedule(2);
 
-          // Test for hour 0 and 1
+          // Test for hour 0 and 1 (the two employees should be removed)
           assertEquals(nemployee, scheduleHour0After.requiredNumber);
-          assertArrayEquals(scheduleHour0Before.workingEmployees, scheduleHour0After.workingEmployees);
+          assertEquals(nemployee, scheduleHour0After.workingEmployees.length);
           assertEquals(nemployee, scheduleHour1After.requiredNumber);
-          assertArrayEquals(scheduleHour1Before.workingEmployees, scheduleHour1After.workingEmployees);
+          assertEquals(nemployee, scheduleHour1After.workingEmployees.length);
 
           // Test for rest of the schedule (hour 2)
           assertEquals(scheduleHour2Before.requiredNumber, scheduleHour2After.requiredNumber);
