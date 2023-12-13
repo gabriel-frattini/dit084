@@ -1,7 +1,31 @@
-# junit5-jupiter-starter-maven
+### Error message when compiling dfy
 
-The `junit5-jupiter-starter-maven` project demonstrates how to execute JUnit Jupiter
-tests using Maven.
+Dafny 2.2.0.10923
+.code.tio.dfy(115,25): Error: call may violate context's modifies clause
+Execution trace:
+(0,0): anon0
+.code.tio.dfy(117,25): Error: call may violate context's modifies clause
+Execution trace:
+(0,0): anon0
+.code.tio.dfy(119,28): Error: call may violate context's modifies clause
+Execution trace:
+(0,0): anon0
+.code.tio.dfy(120,24): Error: call may violate context's modifies clause
+Execution trace:
+(0,0): anon0
+.code.tio.dfy(121,24): Error: call may violate context's modifies clause
+Execution trace:
+(0,0): anon0
 
-Please note that this project uses the [Maven Wrapper](https://github.com/apache/maven-wrapper).
-Thus, to ensure that the correct version of Maven is used, invoke `mvnw` instead of `mvn`.
+Dafny program verifier finished with 9 verified, 5 errors
+Cannot open assembly '.code.tio.exe': No such file or directory.
+
+Real time: 5.373 s
+User time: 4.104 s
+Sys. time: 1.318 s
+CPU share: 100.90 %
+Exit code: 2
+
+### Online compiler
+
+https://tio.run/#dafny
